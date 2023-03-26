@@ -46,7 +46,7 @@
             }else
                 echo "Sorry, ";
         }
-        echo "Informations receved nom :".$nom."prenom :".$prenom."email :".$email."password :".$password."CIN :".$CIN."tel :".$tel."Fonctionnaite :".$Fonctionnalite."equipe :".$equipe."image : ".$target_file;
+       /* echo "Informations receved nom :".$nom."prenom :".$prenom."email :".$email."password :".$password."CIN :".$CIN."tel :".$tel."Fonctionnaite :".$Fonctionnalite."equipe :".$equipe."image : ".$target_file;*/
         //verification
         $check = $bdd->prepare('SELECT CIN, password FROM user WHERE CIN = :CIN AND password = :password');
         $check->execute(array('CIN' => $CIN, 'password' => $password));
@@ -59,7 +59,7 @@
             $etat = "Non_Inscrit";
             if($equipe == 'newEquipe'){
                 $equipeName=htmlspecialchars($_POST['equipeName']);
-                echo "Brooooo".$equipeName;
+                //echo "Brooooo".$equipeName;
                 $check1 = $bdd->prepare('SELECT * FROM equipe where Nom_equipe = :equipeName');
                 $check1->execute(array('equipeName' => $equipeName));
                 $data1 = $check1->fetchAll();
@@ -76,10 +76,12 @@
                         ':date' => $date,
                         ':nb' => $nb
                     ));
-                    echo "equipe inserted";
+                    //echo "equipe inserted";
                 }
-                else
-                        echo "EquipeName existe !!!";
+                else {
+                        $error_msg_equipe = "Le nom d'equipe que vous avez choisi existe déja";
+                        header("Location: next.php");
+                    }
                     }
             else{
                     $etat = "Attente_Capit";
@@ -98,7 +100,12 @@
                         ':etat' => $etat,
                         ':password' => $password,
                         ':equipeName' => $equipeName,
-                        ':img' => $target_file));    
+                        ':img' => $target_file));
+                header("Location: Page2.php");    
+        }
+        else {
+           $error_msg_inscription = "Vous etes deja inscrit";
+           header("Location: Login.php");
         }
     }
     session_destroy();
