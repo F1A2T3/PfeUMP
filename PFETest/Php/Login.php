@@ -7,7 +7,6 @@
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['tel'] = $_POST['tel'];
         $_SESSION['password'] = $_POST['password'];
-         
         header("location: next.php");
         exit();}?>
 <!DOCTYPE html>
@@ -38,8 +37,11 @@
         </div>
     <div class="wrapper">
         <div class="form-wrapper sign-in">
-            <form name="formSin" action="../Php/connexion.php" method="post">
-               <h2 class="signh2">Sign In</h2>
+            <form name="formSin" action="connexion.php" method="post">
+               <h2 class="signh2">Sign In</h2><br>
+               <span style="color:red;">    <?php echo isset($_SESSION['error_msg_inscription']) ? $_SESSION['error_msg_inscription'] : '';?>
+               <?php echo isset($_SESSION['error_msg_refusC']) ? $_SESSION['error_msg_refusC'] : '';?>
+               <?php echo isset($_SESSION['error_msg_refusR']) ? $_SESSION['error_msg_refusR'] : '';?></span><br>
                <div class="input-group">
                  <input name="CIN" class="usernamef" type="text" required>
                   <label for="username">CIN</label>

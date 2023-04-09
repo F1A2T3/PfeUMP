@@ -1,0 +1,64 @@
+<?php 
+    include 'navbar.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/sidebar.css">
+
+	
+</head>
+<body>
+<section id="sidebar">
+		<a href="#" class="brand">
+		<img src="../images/spotclub.svg" style="width: 38px; height: px;" >
+			<span class="text">SpoClub</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="order.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Order</span>
+				</a>
+			</li>
+			<li>
+				<a href="main.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">list of user</span>
+				</a>
+			</li>
+			<li>
+				<a href="profil.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Profil</span>
+				</a>
+			</li> 
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="deconnexion.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<script src="../scripte/script.js"></script>
+
+</body>
+</html>

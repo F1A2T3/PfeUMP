@@ -13,7 +13,7 @@
         $Fonctionnalite = htmlspecialchars($_POST['Fonctionnalite']);
         $equipe = htmlspecialchars($_POST['equipe']);
         //Image Traitement
-        $target_dir = "../Uploads/";
+        $target_dir = "../../Uploads/";
         $target_file = $target_dir.basename($_FILES["img"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -58,6 +58,7 @@
             $capi = 0;
             $etat = "Non_Inscrit";
             if($equipe == 'newEquipe'){
+                echo "Cccc";
                 $equipeName=htmlspecialchars($_POST['equipeName']);
                 //echo "Brooooo".$equipeName;
                 $check1 = $bdd->prepare('SELECT * FROM equipe where Nom_equipe = :equipeName');
@@ -80,7 +81,9 @@
                 }
                 else {
                         $error_msg_equipe = "Le nom d'equipe que vous avez choisi existe déja";
+                        $_SESSION['error_msg_equipe']=$error_msg_equipe;
                         header("Location: next.php");
+                        goto fin;
                     }
                     }
             else{
@@ -105,7 +108,9 @@
         }
         else {
            $error_msg_inscription = "Vous etes deja inscrit";
+           $_SESSION['error_msg_inscription']=$error_msg_inscription;
            header("Location: Login.php");
         }
     }
+    fin:
     session_destroy();

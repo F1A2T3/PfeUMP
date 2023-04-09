@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,8 @@
                 <img src="../Images/burger-checklist-list-menu-navigation-svgrepo-com.svg" class="menu-icon" style="background-color: azure;" onclick="togglemenu()">
         </div>
          <div class="wrapper" style="height: 480px; width: 500px; left:180px">
-               <h2 class="signh2" >sign-up</h2>
+               <h2 class="signh2" >sign-up</h2><br>
+               <span style="color:red;"><?php echo isset($_SESSION['error_msg_equipe']) ? $_SESSION['error_msg_equipe'] : ''; ?></span><br>
                <form name="formSup" method="Post" action="Inscription.php" enctype="multipart/form-data" style="padding-top: 20px;">
                    <label for="Choice" style="font-size: larger; color: aqua; border-bottom: 2px solid #056313; ">You are :</label><br>
                    <div class="clnext">

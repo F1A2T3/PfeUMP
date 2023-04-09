@@ -24,8 +24,8 @@
                 <img src="../Images/burger-checklist-list-menu-navigation-svgrepo-com.svg" class="menu-icon" style="background-color: azure;" onclick="togglemenu()">
         </div>
       <div class="container1">
-       <p class="Attente para">
-          En attente la validation de votre demmande de rejoint au club
+       <p class="Attente para" style="color:white;font-size:2em;">
+          En attente la validation de <br>votre demande de rejoint <br>au club, try to login <a href="Login.php" style="decoration:none;color:red;">Login<a>
        </p>
       <span style="--i:0;"></span>
       <span style="--i:1;"></span>
