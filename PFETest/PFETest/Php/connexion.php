@@ -1,12 +1,13 @@
 <?php 
-    session_start(); // Démarrage de la session
-    require_once 'config.php'; // On inclut la connexion à la base de données
-    if(isset($_POST['ok'])) // Si il existe les champs email, password et qu'ils sont pas vident
+    session_start(); 
+    require_once 'config.php';
+    if(isset($_POST['ok'])) 
     {
-       // $_SESSION['Login']=$_POST['CIN'];
-        //$_SESSION['mdp']=$_POST['password'];
+        $_SESSION['Login']=$_POST['CIN'];
+        $_SESSION['mdp']=sha1($_POST['password']);
         $CIN = htmlspecialchars($_POST['CIN']); 
-        $password = htmlspecialchars($_POST['password']);
+        $passwordCrypt = htmlspecialchars($_POST['password']);
+        $password = sha1($passwordCrypt);
         $reponse=$bdd->prepare('SELECT * FROM responsable WHERE CIN = :CIN AND mot_de_passe = :password');
         $reponse->execute(array(':CIN'=>$CIN,':password'=>$password));
         if($reponse->rowCount()>0){
@@ -17,29 +18,31 @@
             $reponse->execute(array(':CIN'=>$CIN,':password'=>$password));
             $data = $reponse->fetch();
            if($reponse->rowCount()>0){
-                if($data[7]=='Attente_Respo'||$data[7]=='Attente_Capit')
+                if($data[6]=='Attente_Respo'||$data[6]=='Attente_Capit')
                     header("Location: Page2.php");
                 else{
-                    if($data[7]=='Refus_Capit'){
+                    if($data[6]=='Refus_Capit'){
                         $error_msg_refusC = "Votre demande est refusé par le capitaine !!!";
                         $_SESSION['error_msg_refusC']=$error_msg_refusC;
                         header("Location: Login.php");
                     }   
                     else{
-                        if($data[7]=='Refus_Respo'){
-                        $error_msg_refusR = "Votre demande est refusé par le responsable!!!";
-                        $_SESSION['error_msg_refusR']=$error_msg_refusR;
-                        header("Location: Login.php");}
+                        if($data[6]=='Refus_Respo'){
+                          $error_msg_refusR = "Votre demmande est refusé par le responsable!!!";
+                          $_SESSION['error_msg_refusR']=$error_msg_refusR;
+                          header("Location: Login.php");}
                         else{
-                            if($data[5]==1&&$data[6]=='EtudiantFso')
-                            header("Location: ../responsable/capitaine/indx.php");
+                            $reponse=$bdd->prepare('SELECT Capitaine FROM equipe WHERE Nom_equipe = :nom');
+                            $reponse->execute(array(':nom'=>$data[8]));
+                            $data1 = $reponse->fetch();
+                            if($data1[0] == $data[0]){
+                             if($data[5]=='EtudiantFso')
+                              header("Location: ../responsable/capitaine/main.php");
+                             else 
+                                    echo "Le capitaine d'une equipe des fonctionnaires ou des externes";}
                             else{
-                                if($data[5]==1&&($data[6]=='FonctionnaireFso'||$data[6]=='Externe'))
-                                    echo "Le capitaine d'une equipe des fonctionnaires ou des externes";
-                                else{
                                     echo "normal user";
                                 }
-                            }
                         }
                     }
                 }

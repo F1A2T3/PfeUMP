@@ -25,7 +25,7 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="">
+				<a href="main.php">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
@@ -37,7 +37,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="main.php">
+				<a href="joueur.php">
 					<i class='bx bxs-message-dots' ></i>
 					<span class="text">list of user</span>
 				</a>

@@ -1,6 +1,9 @@
 body{
-    background-color: #E3E7E8;
+    background-color: rgb(225, 253, 44);
     font-family: system-ui;
+}
+main{
+    background-color: rgb(225, 253, 44);
 }
 *{
     margin: 0;
@@ -15,15 +18,17 @@ body{
 }
 .list .Person{
     text-align: center;
-    background-color: #DCE0E1;
+    background-color: #16774a;
+    color: rgb(225, 253, 44);
     padding: 20px;
-    box-shadow: 0 50px 50px #757676;
+    box-shadow: 0 50px 50px rgb(107, 122, 10);
     letter-spacing: 1px;
     width :250px;
     height :300px;
 }
 .list .Person img{
     width: 90%;
+    height: 45%;
 }
 .list .Person .Name{
     font-weight: 600;
@@ -32,8 +37,8 @@ body{
     margin: 10px;
 }
 .list .Person button{
-    background-color: #1C1F25;
-    color: #fff;
+    background-color:  rgb(225, 253, 44);
+    color: #16774a;
     width: 100%;
     padding: 10px;
 }

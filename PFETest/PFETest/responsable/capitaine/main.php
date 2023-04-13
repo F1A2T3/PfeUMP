@@ -1,7 +1,18 @@
-
-
 <?php 
     include 'sidebar.php';
+    $reponse=$bdd->prepare('SELECT * FROM user WHERE CIN = :CIN AND password = :password');
+    $reponse->execute(array(':CIN'=>$login,':password'=>$mdp));
+    $data = $reponse->fetch();
+    $sql = "SELECT COUNT(*) AS nb_users FROM user WHERE état_inscription = :etat AND Nom_equipe = :equipeName";
+    $etat = "Inscrit";
+    $stmt = $bdd->prepare($sql);
+    $stmt->execute(array(':etat'=>$etat,':equipeName'=>$data[8]));
+    $nb_users = $stmt->fetchColumn();
+    $sql = "SELECT COUNT(*) AS nombre_demandes FROM user WHERE état_inscription = :etat AND Nom_equipe = :equipe";
+    $stmt = $bdd->prepare($sql);
+    $etat = "Attente_Capit";
+    $stmt->execute(array(':etat' => $etat,':equipe' =>$data[8]));
+    $nb_Demmandes = $stmt->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,44 +89,24 @@
     	<main>
 			<div class="head-title">
 					<h1>Dashboard</h1>
-				<a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Add</span>
-				</a>
 			</div>
 
 			<ul class="box-info">
 				<li>
 					<i class='bx bxs-calendar-check' ></i>
 					<span class="text">
-						<h3>1020</h3>
+						<h3><?=$nb_Demmandes?></h3>
 						<p>New Order</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-dollar-circle' ></i>
-					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
+						<h3><?=$nb_users?></h3>
+						<p>Friends</p>
 					</span>
 				</li>
 			</ul>
-
-
-			<div class="table-data">
-				<div class="order"> 
-					<?php 
-						include 'joueur.php';
-					?>
-				</div>
-			</div>
 		</main>
 	</section>
 

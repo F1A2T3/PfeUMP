@@ -3,7 +3,7 @@
 include 'connection.php';
 
 $requet="SELECT * from equipe ";
-$res=$connection->query($requet);
+$res=$bdd->query($requet);
 
 if (!$res) {
     echo "la recuperation des donnees a ricintre un probleme '<br>'" ;
@@ -37,30 +37,23 @@ if (!$res) {
     <section id="content">
         <main>
             <div class="head-title">
-                <a href="#" class="btn-download">
-					
-					<span class="text">Add</span>
-				</a>    
+            <button class="button-7 bx" role="button" style="width: 70px;background-color: #16774a;color: rgb(225, 253, 44); border-color :#16774a;">Ajouter</button>  
                 <br><br>
-                <table style="border-radius='2'">
+                <table style="border-radius='2'" id="tableau">
                     <tr>
                         <th>Nom Equipe</th>
                         <th>la date de creation</th>
                         <th>Nombre de joueur</th>
                         <th>id</th>
+                        <th>Capitaine</th>
                     </tr>
-
                     <?php
-                    
                         while ($line = $res->fetch(PDO::FETCH_NUM)) {
                             echo "<tr>";
                             foreach ($line as $value) {
                                 echo "<td>$value</td>";
                             }
                             echo "
-                            <td>Nom Equipe</td>
-                            <td>la date de creation</td>
-                            <td>Nombre de joueur</td>
                             <td class='icons-table'>
                                 <button class='btn-icons trash'><i class='fa-sharp fa-solid fa-trash'></i></button>
                                 <button class='btn-icons pen'><i class='fa-sharp fa-solid fa-pen-to-square'></i></button>
@@ -68,7 +61,6 @@ if (!$res) {
                             ";
                             echo "</tr>";
                         }
-                    
                     ?>
                 </table>
                 <?php $res->closeCursor()?>
@@ -80,5 +72,33 @@ if (!$res) {
     </section>
     <link rel="stylesheet" href="../scripte/sidenav.js">
 	<script src="../scripte/script.js"></script>
+    <script>
+        function containsString(str, substr) {
+              return str.indexOf(substr) > -1;
+        }
+        function filterTable() {
+            var input = document.getElementById("search");
+            var table = document.getElementById("tableau");
+            var rows = table.getElementsByTagName("tr");
+            if(input.value.toUpperCase() == ""){
+                for (var i = 1; i < rows.length; i++){
+                    var row = rows[i];
+                     row.style.display = "";}
+                   }
+            else{
+             for (var i = 1; i < rows.length; i++) {
+                var row = rows[i];
+                var Col = row.getElementsByTagName("td")[0];
+                if (Col) {
+                   var txtValue = Col.textContent || Col.innerText;
+                   if (containsString(txtValue.toUpperCase(),input.value.toUpperCase())) {
+                     row.style.display = "";
+                    } else {
+                       row.style.display = "none";
+                    }
+                }
+            }}
+        }
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color:rgb(0, 0, 0) ;
+    background-color:#4f2479 ;
 }
 *{
     margin: 0;
@@ -27,7 +27,7 @@ body{
     width: 50px;
     cursor: pointer;
     margin: 30px 0;
-    color: #16fc22;
+    color: rgb(225, 253, 44);
     padding-left: 5px;
 }
 .menu-icon{
@@ -46,7 +46,7 @@ nav ul li{
 }
 nav ul li a{
     text-decoration: none;
-    color: rgb(27, 212, 58);
+    color:rgb(225, 253, 44);
     font-size: 14px;
 }
 nav ul li a:hover{
@@ -55,7 +55,7 @@ nav ul li a:hover{
 @media only screen and (max-width:700px) {
     nav ul{
         width: 30%;
-        background: linear-gradient(#2c352f, #1cca2a);
+        background: linear-gradient(#2c352f, rgb(225, 253, 44));
         position: absolute;
         top: 75px;
         right: 0;
@@ -98,10 +98,10 @@ nav ul li a:hover{
 }
 @keyframes animateBlink{
     0%{
-        background: rgb(18, 235, 18);
+        background: rgb(225, 253, 44);
     }
     25%{
-        background: rgb(31, 54, 7);
+        background:rgb(240, 216, 0);
     }
 }
 .login-box{

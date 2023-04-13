@@ -1,19 +1,19 @@
 <?php
     session_start();
-    require_once 'config.php';
+    require_once 'connection.php';
     if(isset($_POST['subm']))
     {
         // Data
-        $nom = htmlspecialchars($_SESSION['nom']);
-        $prenom = htmlspecialchars($_SESSION['prenom']);
-        $email = htmlspecialchars($_SESSION ['email']);
-        $password = htmlspecialchars($_SESSION['password']);
-        $CIN = htmlspecialchars($_SESSION['CIN']);
-        $tel = htmlspecialchars($_SESSION['tel']);
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $email = htmlspecialchars($_POST ['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $CIN = htmlspecialchars($_POST['CIN']);
+        $tel = htmlspecialchars($_POST['tel']);
         $Fonctionnalite = htmlspecialchars($_POST['Fonctionnalite']);
         $equipe = htmlspecialchars($_POST['equipe']);
         //Image Traitement
-        $target_dir = "../Uploads/";
+        $target_dir = "../../Uploads/";
         $target_file = $target_dir.basename($_FILES["img"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -58,7 +58,7 @@
             //$capi = 0;
             $etat = "Non_Inscrit";
             if($equipe == 'newEquipe'){
-                echo "Cccc";
+                //echo "Cccc";
                 $equipeName=htmlspecialchars($_POST['equipeName']);
                 //echo "Brooooo".$equipeName;
                 $check1 = $bdd->prepare('SELECT * FROM equipe where Nom_equipe = :equipeName');
@@ -69,8 +69,8 @@
                     echo "Good";
                     $nb = 0;
                     $date = date("d.m.y");
-                    $etat = "Attente_Respo";
-                    $capi = 1;
+                    $etat = "Inscrit";
+                    $capi =1;
                     $insertEq = $bdd->prepare('INSERT INTO equipe(Nom_equipe,Date_Creation,nbr_joueurs) VALUES(:equipeName,:date,:nb)');
                     $insertEq->execute(array(
                         ':equipeName' => $equipeName,
@@ -82,12 +82,12 @@
                 else {
                         $error_msg_equipe = "Le nom d'equipe que vous avez choisi existe déja";
                         $_SESSION['error_msg_equipe']=$error_msg_equipe;
-                        header("Location: next.php");
+                        header("Location: Ajout.php");
                         goto fin;
                     }
                     }
             else{
-                    $etat = "Attente_Capit";
+                    $etat = "Inscrit";
                     $capi = 0;
                     $equipeName = htmlspecialchars($_POST['selectChEq']);
                 }
@@ -108,12 +108,12 @@
                     $Update = $bdd->prepare('UPDATE equipe set Capitaine = :cin WHERE Nom_equipe = :equipe');
                     $Update->execute(array('cin' => $CIN, 'equipe' => $equipeName));
                 }
-                header("Location: Page2.php");    
+                header("Location: afficherUSER.php");    
         }
         else {
-           $error_msg_inscription = "Vous etes deja inscrit";
+           $error_msg_inscription = "Il est déja inscrit";
            $_SESSION['error_msg_inscription']=$error_msg_inscription;
-           header("Location: Login.php");
+           header("Location: Ajout.php");
         }
     }
     fin:

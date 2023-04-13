@@ -1,14 +1,7 @@
-<?php require_once 'sidebar.php';?>
-<?php
-    try 
-    {
-        $bdd = new PDO("mysql:host=localhost;dbname=test;charset=utf8", "root", "");
-        echo "Connected";
-    }
-    catch(PDOException $e)
-    {
-        die('Erreur HOOOOOO: '.$e->getMessage());
-    }
+<?php require_once 'sidebar.php';
+   $reponse=$bdd->prepare('SELECT Nom_equipe FROM user WHERE CIN = :CIN AND password = :password');
+   $reponse->execute(array(':CIN'=>$login,':password'=>$mdp));
+   $data = $reponse->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,16 +19,15 @@
                 <div class="list">
                     <?php
                         $etat = "Attente_Capit";
-                        $check = $bdd->prepare('SELECT * FROM user WHERE état_inscription = :etat');
-                        $check->execute(array('etat' => $etat));
+                        $check = $bdd->prepare('SELECT * FROM user WHERE état_inscription = :etat AND Nom_equipe = :equipe');
+                        $check->execute(array(':etat' => $etat,':equipe' => $data[0]));
                         if($check->rowCount()>0){
                             $cin = array();
                             while($donnees = $check->fetch()){
                                 $cin[] = $donnees[0]; ?>
                                 <div class="Person">
-                                        <img src="<?=$donnees[10]?>">
+                                        <img src="<?php echo "../" .$donnees[9]?>">
                                         <div class="Name"><?=$donnees[1]?> <?=$donnees[2]?></div>
-                                        <div class="CIN"><?=$donnees[0]?></div>
                                         <form action="" method="post">
                                         <button class="accepter" name="Accepte[]" type="submit">Accepter</button>
                                         <button class="refuser" name="Refuser[]" type="submit">Refuser</button>
@@ -52,6 +44,7 @@
                                 }
                                 $check = $bdd->prepare('UPDATE user SET état_inscription = :etat WHERE CIN = :CIN');
                                 $check->execute(array('etat' => $etat, 'CIN' => $cin[$i]));
+                                header("Location: order1.php");
                             }
                         }
                         else{

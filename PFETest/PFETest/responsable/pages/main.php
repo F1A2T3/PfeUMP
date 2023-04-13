@@ -1,5 +1,17 @@
 <?php 
     include 'sidebar.php';
+	$sql = "SELECT COUNT(*) AS nb_users FROM user WHERE état_inscription = ?";
+	$stmt = $bdd->prepare($sql);
+	$stmt->execute(array("Inscrit"));
+	$nb_users = $stmt->fetchColumn();
+	$sql = "SELECT COUNT(*) AS nb_demandes FROM user WHERE état_inscription = ?";
+	$stmt = $bdd->prepare($sql);
+	$stmt->execute(array("Attente_Respo"));
+	$nb_Demmandes = $stmt->fetchColumn();
+	$sql = "SELECT COUNT(*) AS nb_equipes FROM equipe WHERE nbr_joueurs != 0";
+	$stmt = $bdd->prepare($sql);
+	$stmt->execute();
+	$nb_equipes = $stmt->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,140 +44,32 @@
 						</li>
 					</ul>
 				</div>
-				<a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Add</span>
-				</a>
+
 			</div>
 
 			<ul class="box-info">
 				<li>
 					<i class='bx bxs-calendar-check' ></i>
 					<span class="text">
-						<h3>1020</h3>
+						<h3><?=$nb_Demmandes?></h3>
 						<p>New Order</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
+						<h3><?=$nb_users?></h3>
+						<p>Members</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-dollar-circle' ></i>
 					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
+						<h3><?$nb_equipes?></h3>
+						<p>Equipes</p>
 					</span>
 				</li>
-			</ul>
-
-
-			<div class="table-data">
-				<div class="order">
-
-
-					<div class="head">
-						<h3>Recent Orders</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
-					</div> 
-					<table>
-						<thead>
-							<tr>
-								<th>User</th>
-								<th>Date Order</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<img src="../images/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="#" class="status completed">Accepter</a>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="page.html" class="status pending btn" >Rejeter</a>
-									</input>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td>
-                  
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									    <a href="#" class="status completed"> Accepter</a>
-									    <input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									    <a href="#" class="status pending btn" >Rejeter</a>
-
-									</input>
-									
-								</td>
-							</tr>
-							<tr>
-
-								<td>
-									<img src="../images/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-
-								<td>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-                      <a href="#" class="status completed"> Accepter</a>
-                      <input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-                      <a href="#" class="status pending btn" >Rejeter</a>
-									</input>
-									
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="#" class="status completed"> Accepter</a>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="#" class="status pending btn" >Rejeter</a>
-									</input>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td>									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="#" class="status completed"> Accepter</a>
-									<input id="submit" name="submit" type="submit" value="" onclick="eatFood();" >
-									<a href="#" class="status pending btn" >Rejeter</a>
-									</input>
-									</a></td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					
-
-
-          
+			</ul>   
 <style>
     @import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
     table {

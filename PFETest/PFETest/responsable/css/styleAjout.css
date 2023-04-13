@@ -20,64 +20,6 @@ body{
     box-sizing:border-box ;
     overflow:hidden ;
 }
-.navbar{
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-.logo{
-    width: 50px;
-    cursor: pointer;
-    margin: 30px 0;
-    color:rgb(225, 253, 44);
-    padding-left: 5px;
-}
-.menu-icon{
-    width: 25px;
-    cursor: pointer;
-    display: none;
-}
-nav{
-    flex: 1;
-    text-align: right;
-}
-nav ul li{
-    list-style: none;
-    display: inline-block;
-    margin-right: 36px;
-}
-nav ul li a{
-    text-decoration: none;
-    color: rgb(225, 253, 44);
-    font-size: 14px;
-}
-nav ul li a:hover{
-    color: #16774a;
-}
-@media only screen and (max-width:700px) {
-    nav ul{
-        width: 30%;
-        background: linear-gradient(#2c352f, #4f2479);
-        position: absolute;
-        top: 75px;
-        right: 0;
-        z-index: 2;
-    }
-    nav ul li{
-        display: block;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    nav ul li a {
-        color:rgb(225, 253, 44);
-    }
-    .menu-icon{
-        display: block;
-    }
-    #menuList{
-        overflow: hidden;
-        transition: 0.5s;
-    }}
 .btn{
     margin-top: 40px;
     width:50%;
@@ -93,9 +35,9 @@ body{
 }
 .wrapper{
     position: relative;
-    width: 400px;
+    width: 444px;
     align-items: center;
-    height: 600px;
+    height: 1002px;
     border-radius: 40px;
     background-color: rgb(181, 206, 17) ;
     box-shadow: 0 0 50px rgba(88, 69, 69,0.4);
@@ -111,23 +53,12 @@ body{
     height: 100%;
     transition: 1s ease-in-out;
 }
-.wrapper.active .form-wrapper.sign-in {
-    transform: scale(0) translate(-300px,500px);
-}
-.wrapper .form-wrapper.sign-up{
-    position: absolute;
-    top: 0;
-    transform: scale(0) translate(200px,-500px);
-}
-.wrapper.active .form-wrapper.sign-up {
-    transform: scale(1) translate(0,0) ;
-}
 .signh2{
-    font-size: 30px;
-    color:#16774a;
+    font-size: 24px;
+    color: #16774a;
     text-align: center;
-    padding-right: 45px;
-    padding-left: 45px;
+    padding-right: 34px;
+    padding-left: 95px;
 }
 .input-group{
      position: relative;
@@ -170,6 +101,7 @@ button{
     border-radius: 30px;
     border: none;
     outline: none;
+    margin-right: 136px;
 }
 .signup-link{
    font-size: 14px;
@@ -216,7 +148,7 @@ input[type="radio"] {
 } 
 #chEq{
      margin-right: 50px;
-     margin-left: 149px;
+     margin-left: 128px;
      margin-top: 17px;
      margin-bottom: -20px;
      width: 87px;

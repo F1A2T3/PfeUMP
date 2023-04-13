@@ -2,7 +2,7 @@
 include 'connection.php';
 
 $requete = "SELECT * FROM user";
-$res = $connection->query($requete);
+$res = $bdd->query($requete);
 
 if (!$res) {
     echo "La récupération des données a rencontré un problème '<br>'";
@@ -38,24 +38,36 @@ include 'sidebar.php';
     <section id="content">
         <main>
             <div class="head-title">
-                <a href="#" class="btn-download">
-                    <span class="text">Add</span>
-                </a>
+            <button class="button-7 bx" role="button" style="width: 70px;background-color: #16774a;color: rgb(225, 253, 44); border-color :#16774a;">Ajouter</button>
+            <label for="my-select" class="my-select">Filtre par état d'inscription :</label>
+            <select id="my-select" name="options" onchange="fct()">
+                <option value="">Sélectionnez une option</option>
+                <option value="Tout">Tout</option>
+                <optgroup label="Attente">
+                   <option value="Attente_Respo">En attente responsable</option>
+                   <option value="Attente_Capit">En attente capitaine</option>
+                </optgroup>
+                <optgroup label="Terminé">
+                   <option value="Inscrit">Inscrit</option>
+                   <option value="Refus_Capit">Refusé par capitaine</option>
+                   <option value="Refus_Respo">Refusé par responsable</option>
+                </optgroup>
+            </select>
             </div>
+            
             <br><br>
-            <table>
+            <table id="tableau">
                 <thead>
                     <tr>
                         <th>CIN</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
-                        <th>Capitaine</th>
                         <th>Nom équipe</th>
                         <th>id Respo</th>
                         <th>Type</th>
-                        <th>Etat inscription</th>
-                        <th>Statut</th>
+                        <th>Etat d'inscription</th>
+                        <th>Modif</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,8 +78,7 @@ include 'sidebar.php';
                                 <td>$line[CIN]</td>
                                 <td>$line[Nom]</td>
                                 <td>$line[Prenom]</td>
-                                <td>$line[Tel]</td>
-                                <td>$line[Capitaine]</td>
+                                <td>0$line[Tel]</td>
                                 <td>$line[Nom_equipe]</td>
                                 <td>$line[id_Respo]</td>
                                 <td>$line[Type]</td>
@@ -86,5 +97,47 @@ include 'sidebar.php';
         </main>
     </section>
     <script src="../scripte/script.js"></script>
+    <script>
+      function fct(){
+        const selectFilter = document.getElementById('my-select');
+        const tableau = document.getElementById('tableau');
+        const selectedValue = selectFilter.value;
+        for (let i = 1; i < tableau.rows.length; i++) {
+            const row = tableau.rows[i];
+            const cell = row.cells[7]; 
+            if (selectedValue === ''|| selectedValue === 'Tout'|| cell.textContent === selectedValue) {
+            row.style.display = ''; 
+            } else {
+            row.style.display = 'none'; 
+            }
+        }
+        }
+        function containsString(str, substr) {
+              return str.indexOf(substr) > -1;
+        }
+        function filterTable() {
+            var input = document.getElementById("search");
+            var table = document.getElementById("tableau");
+            var rows = table.getElementsByTagName("tr");
+            if(input.value.toUpperCase() == ""){
+                for (var i = 1; i < rows.length; i++){
+                    var row = rows[i];
+                     row.style.display = "";}
+                   }
+            else{
+             for (var i = 1; i < rows.length; i++) {
+                var row = rows[i];
+                var Col = row.getElementsByTagName("td")[1];
+                if (Col) {
+                   var txtValue = Col.textContent || Col.innerText;
+                   if (containsString(txtValue.toUpperCase(),input.value.toUpperCase())) {
+                     row.style.display = "";
+                    } else {
+                       row.style.display = "none";
+                    }
+                }
+            }}
+        }
+    </script>
 </body>
 </html>
